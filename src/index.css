@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+img {
+  height: 20vw;
+}
+
+.best-product {
+  background-color: #DB7090 !important;
+  animation: clignote 2s linear infinite;
+}
+
+@keyframes clignote {
+  50% {
+    opacity: 0.5;
+  }
+}

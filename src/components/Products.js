@@ -8,7 +8,8 @@ function Products() {
     const [{ openalert }, setOpenAlert] = useState({ openalert: false })
     const [{ alertbienvenue }, setAlertBienvenue] = useState({ alertbienvenue: true })
 
-    function buy() {
+    function buy(prod) {
+        prod.quantity--
         if (!openalert) {
             setOpenAlert({ openalert: true })
         }
@@ -26,7 +27,7 @@ function Products() {
     return (
         <div>
             {alertbienvenue && (<Alert variant="success">
-                <Alert.Heading>Hey, Welcome to Our Shop <b>MyStrore</b></Alert.Heading>
+                <Alert.Heading>Hey, Welcome to Our Shop <b>MyStore</b></Alert.Heading>
                 Thank you for choosing our strore, we hope you enjoy your shopping experience!
                 <hr />
             </Alert>)}
@@ -36,7 +37,7 @@ function Products() {
                         {productList.map((item, index) => <Product
                             key={index}
                             product={item}
-                            buy={buy}
+                            buy={() => buy(item)}
                         ></Product>)}
                     </Col>
                 </Row>
