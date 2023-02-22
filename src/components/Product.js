@@ -29,7 +29,7 @@ export default class Product extends React.Component {
                 </Card.Body>
                 <Card.Footer>
                     <Button onClick={this.addLikes}>Like</Button>
-                    <Button onClick={this.buy}>Buy</Button>
+                    <Button onClick={this.buy} disabled={this.state.quantity === 0}>Buy</Button>
                 </Card.Footer>
             </Card>
         )
