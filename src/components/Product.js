@@ -1,37 +1,30 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 
-export default class Product extends React.Component {
+function Product(props) {
+    const [{ likes }, setLikes] = useState(props.product.like)
 
-    constructor(props) {
-        super(props)
-        this.state = props.product
-        this.buy = props.buy
+    function addLikes() {
+        setLikes(props.product.like += 1)
     }
-    addLikes=()=>{
-        this.setState((oldState)=>({
-            like: oldState.like + 1
-        }))
-    }
+    return (
+        <Card className="flex">
+            <Card.Header>
+                <Card.Img src={require('../assets/images/' + props.product.img)}></Card.Img>
+            </Card.Header>
+            <Card.Body>
+                <Card.Title>Title : {props.product.name}</Card.Title>
+                <p>Description : {props.product.description}</p>
+                <p>Price : {props.product.price} DT</p>
+                <p>Likes : {props.product.like}</p>
+            </Card.Body>
+            <Card.Footer>
+                <Button onClick={addLikes}>Like</Button>
+                <Button onClick={props.buy} disabled={props.product.quantity === 0}>Buy</Button>
+            </Card.Footer>
+        </Card>
+    )
 
-    render() {
-        return (
-            <Card className="flex">
-                <Card.Header>
-                    <Card.Img src={require('../assets/images/' + this.state.img)}></Card.Img>
-                </Card.Header>
-                <Card.Body>
-                    <Card.Title>Title : {this.state.name}</Card.Title>
-                    <p>Description : {this.state.description}</p>
-                    <p>Price : {this.state.price} DT</p>
-                    <p>Likes : {this.state.like}</p>
-                </Card.Body>
-                <Card.Footer>
-                    <Button onClick={this.addLikes}>Like</Button>
-                    <Button onClick={this.buy}>Buy</Button>
-                </Card.Footer>
-            </Card>
-        )
-    }
 }
+export default Product;
