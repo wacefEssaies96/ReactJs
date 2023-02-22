@@ -9,6 +9,7 @@ export default class Product extends React.Component {
         this.state = props.product
         this.buy = props.buy
     }
+
     addLikes=()=>{
         this.setState((oldState)=>({
             like: oldState.like + 1
@@ -25,6 +26,7 @@ export default class Product extends React.Component {
                     <Card.Title>Title : {this.state.name}</Card.Title>
                     <p>Description : {this.state.description}</p>
                     <p>Price : {this.state.price} DT</p>
+                    <p>Quantity : {this.state.quantity}</p>
                     <p>Likes : {this.state.like}</p>
                 </Card.Body>
                 <Card.Footer>

@@ -17,7 +17,8 @@ export default class Products extends React.Component {
             this.setState({ alertbienvenue: false })
         }, 3000)
     }
-    buy = () => {
+    buy = (prop) => {
+        this.setState({ quantity: prop.quantity-- })
         if (!this.state.openalert) {
             this.setState({ openalert: !this.state.openalert })
             setTimeout(() => {
@@ -29,7 +30,7 @@ export default class Products extends React.Component {
         return (
             <div>
                 {this.state.alertbienvenue && (<Alert variant="success">
-                    <Alert.Heading>Hey, Welcome to Our Shop <b>MyStrore</b></Alert.Heading>
+                    <Alert.Heading>Hey, Welcome to Our Shop <b>MyStore</b></Alert.Heading>
                     Thank you for choosing our strore, we hope you enjoy your shopping experience!
                     <hr />
                 </Alert>)}
@@ -39,7 +40,7 @@ export default class Products extends React.Component {
                             {productList.map((item, index) => <Product
                                 key={index}
                                 product={item}
-                                buy={this.buy}></Product>)}
+                                buy={() => this.buy(item)}></Product>)}
                         </Col>
                     </Row>
                 </Container>
