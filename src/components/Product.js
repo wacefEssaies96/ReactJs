@@ -29,9 +29,9 @@ export default class Product extends React.Component {
                     <p>Quantity : {this.state.quantity}</p>
                     <p>Likes : {this.state.like}</p>
                 </Card.Body>
-                <Card.Footer>
+                <Card.Footer className="d-flex justify-content-around">
                     <Button onClick={this.addLikes}>Like</Button>
-                    <Button onClick={this.buy} disabled={this.state.quantity === 0}>Buy</Button>
+                    <Button variant="info" onClick={this.buy} disabled={this.state.quantity === 0}>Buy</Button>
                 </Card.Footer>
             </Card>
         )
