@@ -7,7 +7,7 @@ export default class Product extends React.Component {
     constructor(props) {
         super(props)
         this.state = props.product
-        this.addlikes = this.addLikes.bind(this)
+        this.buy = props.buy
     }
     addLikes=()=>{
         this.setState((oldState)=>({
@@ -17,7 +17,7 @@ export default class Product extends React.Component {
 
     render() {
         return (
-            <Card>
+            <Card className="flex">
                 <Card.Header>
                     <Card.Img src={require('../assets/images/' + this.state.img)}></Card.Img>
                 </Card.Header>
@@ -29,7 +29,7 @@ export default class Product extends React.Component {
                 </Card.Body>
                 <Card.Footer>
                     <Button onClick={this.addLikes}>Like</Button>
-                    <Button>Buy</Button>
+                    <Button onClick={this.buy}>Buy</Button>
                 </Card.Footer>
             </Card>
         )
