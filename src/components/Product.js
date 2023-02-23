@@ -1,14 +1,15 @@
-import Nav from 'react-bootstrap/Nav';
 import React, { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 
 function Product(props) {
+
     const [, setLikes] = useState(props.product.like)
 
     function addLikes() {
         setLikes(props.product.like += 1)
     }
+
     return (
         <Card className={props.product.like > 5 ? 'flex best-product' : 'flex'}>
             <Card.Header>

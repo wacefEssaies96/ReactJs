@@ -1,8 +1,8 @@
 function NotFound() {
     return (
-        <div>
-            <img src={require('../assets/images/notfound.jfif')}></img>
-        </div>
+        <>
+            <img className='not-found' alt='Not Found' src={require('../assets/images/notfound.jfif')}></img>
+        </>
     )
 }
 export default NotFound;

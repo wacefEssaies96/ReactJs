@@ -5,25 +5,27 @@ import { Alert, Col, Container, Row } from "react-bootstrap";
 
 function Products() {
 
-    const [{ openalert }, setOpenAlert] = useState({ openalert: false })
-    const [{ alertbienvenue }, setAlertBienvenue] = useState({ alertbienvenue: true })
+    const [{ openalert }, setOpenAlert] = useState({ openalert: false });
+    const [{ alertbienvenue }, setAlertBienvenue] = useState({ alertbienvenue: true });
 
     function buy(prod) {
-        prod.quantity--
+        prod.quantity--;
         if (!openalert) {
-            setOpenAlert({ openalert: true })
+            setOpenAlert({ openalert: true });
         }
     };
     useEffect(() => {
         setTimeout(() => {
-            setOpenAlert({ openalert: false })
+            setOpenAlert({ openalert: false });
         }, 2000)
-    }, [openalert])
+    }, [openalert]);
+
     useEffect(() => {
         setTimeout(() => {
-            setAlertBienvenue({ alertbienvenue: false })
-        }, 3000)
-    })
+            setAlertBienvenue({ alertbienvenue: false });
+        }, 3000);
+    });
+
     return (
         <div>
             {alertbienvenue && (<Alert variant="success">
@@ -32,15 +34,15 @@ function Products() {
                 <hr />
             </Alert>)}
             <Container>
-                <Row>
-                    <Col className="d-flex">
-                        {productList.map((item, index) => <Product
-                            key={index}
-                            product={item}
-                            buy={() => buy(item)}
-                        ></Product>)}
-                    </Col>
-                </Row>
+                    <Row>
+                        <Col className="d-flex">
+                            {productList.map((item, index) => <Product
+                                key={index}
+                                product={item}
+                                buy={() => buy(item)}
+                            ></Product>)}
+                        </Col>
+                    </Row>
             </Container>
             {openalert && (<Alert variant="info">
                 You bought an item !
