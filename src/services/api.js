@@ -1,7 +1,9 @@
 import axios from 'axios';
 const url = "http://localhost:3001/products";
-export const getallProducts = async (id) => {
-    id = id || '';
+export const getallProducts = async () => {
+    return await axios.get(`${url}`);
+}
+export const getProductById = async (id) => {
     return await axios.get(`${url}/${id}`);
 }
 export const addProduct = async (product) => {

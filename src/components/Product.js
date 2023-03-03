@@ -2,6 +2,7 @@ import Card from "react-bootstrap/Card";
 import { Component, useState, useEffect } from 'react';
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { deleteProduct } from "../services/api"
 
 function Product(props) {
 
@@ -10,6 +11,10 @@ function Product(props) {
 
   const like = () => {
     setLikes(likes + 1);
+  }
+  const deleteProductById = async () => {
+    await deleteProduct(product.id)
+    props.refresh()
   }
   useEffect(() => { console.log("Likes Update") }, [])
 
@@ -34,6 +39,10 @@ function Product(props) {
         <Button variant="primary" onClick={() => props.buyFunction(product)} disabled={product.quantity <= 0}>Buy</Button>
 
       </Card.Body>
+      <Card.Footer>
+        <Link className="btn btn-success" to={`/products/update/${product.id}`}>Update Product</Link>
+        <Button onClick={deleteProductById} variant="danger">Delete product</Button>
+      </Card.Footer>
     </Card>);
 
 }

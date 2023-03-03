@@ -17,10 +17,13 @@ function Products() {
     setVisible(true);
     setTimeout(() => { setVisible(false) }, 2000)
   }
-  useEffect(() => {
+  const refresh = () => {
     getallProducts()
       .then((res) => { setProducts(res.data) })
       .catch(err => console.log(err))
+  }
+  useEffect(() => {
+    refresh()
     // setVisible2(true);
     // setTimeout(()=>{setVisible2(false)},3000)
     // return () => {
@@ -43,7 +46,7 @@ function Products() {
         }
         {products.map((element, index) =>
           <Col key={index}>
-            <Product product={element} buyFunction={buy} />
+            <Product product={element} refresh={refresh} buyFunction={buy} />
           </Col>
         )}
         {visible && <Alert style={{ marginTop: "30px" }} variant="primary">
