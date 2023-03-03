@@ -1,55 +1,59 @@
-import React, { useEffect, useState } from "react";
 import Product from "./Product";
-import productList from "../products.json"
+import { useEffect, useState } from 'react';
 import { Alert, Col, Container, Row } from "react-bootstrap";
+// import products from '../products.json'
+import { useOutletContext } from "react-router-dom";
+import { getallProducts } from "../services/api";
 
 function Products() {
 
-    const [{ openalert }, setOpenAlert] = useState({ openalert: false });
-    const [{ alertbienvenue }, setAlertBienvenue] = useState({ alertbienvenue: true });
+  const [visible, setVisible] = useState(false)
+  const [visible2, setVisible2] = useState(false)
+  const [currentUser] = useOutletContext();
+  const [products, setProducts] = useState([])
 
-    function buy(prod) {
-        prod.quantity--;
-        if (!openalert) {
-            setOpenAlert({ openalert: true });
+  const buy = (product) => {
+    product.quantity--;
+    setVisible(true);
+    setTimeout(() => { setVisible(false) }, 2000)
+  }
+  useEffect(() => {
+    getallProducts()
+      .then((res) => { setProducts(res.data) })
+      .catch(err => console.log(err))
+    // setVisible2(true);
+    // setTimeout(()=>{setVisible2(false)},3000)
+    // return () => {
+    //   console.log("I m unmounting")
+    // }
+  }, [])
+
+
+  return (
+    <Container>
+      <Row>
+        {currentUser}
+        {visible2 && <Alert variant="success">
+          <Alert.Heading>Hey, Welcome To Our Shop <strong> MyStore </strong>    </Alert.Heading>
+          <p>
+            Thank you for choosing our store, we hope you enjoy your shopping experience!
+          </p>
+          <hr />
+        </Alert>
         }
-    };
-    useEffect(() => {
-        setTimeout(() => {
-            setOpenAlert({ openalert: false });
-        }, 2000)
-    }, [openalert]);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setAlertBienvenue({ alertbienvenue: false });
-        }, 3000);
-    });
-
-    return (
-        <div>
-            {alertbienvenue && (<Alert variant="success">
-                <Alert.Heading>Hey, Welcome to Our Shop <b>MyStore</b></Alert.Heading>
-                Thank you for choosing our strore, we hope you enjoy your shopping experience!
-                <hr />
-            </Alert>)}
-            <Container>
-                    <Row>
-                        <Col className="d-flex">
-                            {productList.map((item, index) => <Product
-                                key={index}
-                                product={item}
-                                buy={() => buy(item)}
-                            ></Product>)}
-                        </Col>
-                    </Row>
-            </Container>
-            {openalert && (<Alert variant="info">
-                You bought an item !
-            </Alert>)}
-
-        </div>
-    )
+        {products.map((element, index) =>
+          <Col key={index}>
+            <Product product={element} buyFunction={buy} />
+          </Col>
+        )}
+        {visible && <Alert style={{ marginTop: "30px" }} variant="primary">
+          <p>
+            You Bought an Item
+          </p>
+        </Alert>}
+      </Row>
+    </Container>);
 
 }
+
 export default Products;

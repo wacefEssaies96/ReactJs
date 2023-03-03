@@ -1,27 +1,39 @@
-import './App.css';
-import React, { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import NavBar from './components/NavigationBar';
+import './App.css';
+import CustomNavbar from './Components/CustomNavbar';
+
+
+const Home = lazy(() => import('./Components/Home'));
+const ProductDetails = lazy(() => import('./Components/ProductDetails'));
+const AddProduct = lazy(() => import('./Components/AddProduct'))
+const Products = lazy(() => import('./Components/Products'));
+const ProductLayout = lazy(() => import('./Components/ProductLayout'));
+const NotFound = lazy(() => import('./Components/NotFound'));
+
 
 function App() {
 
-  const Products = React.lazy(() => import('./components/Products'));
-  const ProductDetails = React.lazy(() => import('./components/ProductDetails'));
-  const NotFound = React.lazy(() => import('./components/NotFound'));
-
   return (
-    <div className="App">
-      <NavBar></NavBar>
-      <Suspense fallback={<p>Chargement...</p>}>
+    // <Fragement>
+    <>
+
+      {/* <Products/> */}
+      <Suspense fallback={<h1>Loaading ....</h1>}>
+        <CustomNavbar />
         <Routes>
-          <Route path="/products">
-            <Route path="list" element={<Products></Products>}></Route>
-            <Route path=":productname" element={<ProductDetails></ProductDetails>}></Route>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<h1>Home</h1>} />
+          <Route path="/home/:username" element={<Home />} />
+          <Route path="/products" element={<ProductLayout />}>
+            <Route path="list" element={<Products />} />
+            <Route path="add" element={<AddProduct />} />
+            <Route path=":name" element={<ProductDetails />} />
           </Route>
-          <Route path='*' element={<NotFound />}></Route>
         </Routes>
       </Suspense>
-    </div >
+    </>
+    // </Fragement>
   );
 }
 
