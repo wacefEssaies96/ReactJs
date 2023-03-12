@@ -1,3 +1,4 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
 .App {
   text-align: center;
 }
@@ -35,4 +36,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+.bestProduct {
+  background-color:#DB7090;
+  animation:  clignote 2s linear infinite;
+  
+}
+@keyframes clignote {  
+  50% { opacity: 0.5; }
 }
